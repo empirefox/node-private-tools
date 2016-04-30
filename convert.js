@@ -12,11 +12,11 @@ function convert(src, dst) {
       ])
       .on('error', function(err) {
         console.log('An error occurred: ' + err.message);
-        resolve();
+        resolve(0);
       })
       .on('end', function() {
         console.log('OK: ' + dst);
-        resolve();
+        resolve(1);
       })
       .save(dst);
   });

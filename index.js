@@ -15,7 +15,8 @@ console.log(`target dir: ${toDir}`);
 
 fs.makeTreeSync(toDir);
 
-let mvs = fs.listSync(fromDir, 'mp4,mkv,avi'.split(','));
+let mvs = fs.listSync(fromDir, 'mp4,mkv,avi,flv'.split(','));
+let converted = 0;
 
 function next(index) {
   if (index < mvs.length) {
@@ -33,10 +34,13 @@ function next(index) {
         ext: '.mp4',
         name: dstName,
       });
-      convert(src, dst).then(_ => next(index));
+      convert(src, dst).then(n => {
+        converted += n;
+        next(index);
+      });
     }
   } else {
-    console.log('All done!');
+    console.log(`All done! ${converted} files converted.`);
   }
 }
 
