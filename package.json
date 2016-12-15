@@ -1,18 +1,40 @@
 {
-  "name": "ffconverter",
+  "name": "node-private-tools",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "fluent-ffmpeg": "^2.0.1",
-    "fs-plus": "^2.8.1",
-    "iconv-lite": "^0.4.13",
-    "yargs": "^4.3.2"
-  },
-  "devDependencies": {},
+  "main": "src/index.ts",
   "scripts": {
+    "start": "ts-node ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "gen-city-mobile-sections": "./bin/gen-city-mobile-sections.ts",
+    "gen-kuaidi100": "./bin/gen-kuaidi100.ts",
+    "gen-svg-patterns": "./bin/gen-svg-patterns.ts",
+    "to-mpeg4": "./bin/to-mpeg4.ts"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "cheerio": "^0.22.0",
+    "fluent-ffmpeg": "^2.1.0",
+    "fs-plus": "^2.9.3",
+    "iconv-lite": "^0.4.15",
+    "pg": "^6.1.2",
+    "rxjs": "^5.0.1",
+    "typeorm": "0.0.5",
+    "yargs": "^6.5.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.17.31",
+    "@types/core-js": "^0.9.35",
+    "@types/fluent-ffmpeg": "0.0.2",
+    "@types/node": "^6.0.52",
+    "@types/yargs": "^6.3.3",
+    "codelyzer": "^2.0.0-beta.3",
+    "ts-node": "^1.7.2",
+    "tslint": "^4.0.2",
+    "typescript": "^2.1.4"
+  }
 }
