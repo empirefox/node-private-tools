@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { usage } from 'yargs';
-import { writeFileSync } from 'fs';
+import { writeFile } from '../common';
 
 let argv = usage('Usage: $0 [options]')
   .example('$0 -o coms.json', 'generate Kuaidi100 company list')
@@ -8,9 +8,9 @@ let argv = usage('Usage: $0 [options]')
     o: {
       alias: 'out',
       nargs: 1,
-      describe: 'output file, support .js .json',
+      describe: 'output file, support .ts .js .json',
       demand: true,
-      coerce: (arg: string) => /\.js(on)?$/.test(arg) ? arg : `${arg}.json`,
+      coerce: (arg: string) => /\.(ts|js|json)$/.test(arg) ? arg : `${arg}.json`,
     }
   })
   .help('h')
@@ -27,11 +27,5 @@ axios.get('https://rawgit.com/simman/Kuaidi100/master/companys.json').then(res =
     map[com.number] = { name: com.name };
   });
 
-  let content = JSON.stringify(map, null, '\t');
-  if ((<string>argv.o).endsWith('js')) {
-    content = `export const companys = ${content};`;
-  }
-
-  writeFileSync(argv.o, content, { encoding: 'utf8' });
-  process.stdout.write('done!\n');
+  writeFile(argv.o, map);
 });
