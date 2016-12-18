@@ -1,6 +1,6 @@
 {
   "name": "node-private-tools",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "personal node tools",
   "main": "src/index.ts",
   "scripts": {

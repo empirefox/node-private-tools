@@ -19,6 +19,6 @@ export function parse() {
         base64: li.attr('style').slice(start, -3),
         font: li.find('span').first().attr('class'),
       };
-    });
+    }).filter(e => !/,url\('data:image/.test(e.base64));
   });
 }
