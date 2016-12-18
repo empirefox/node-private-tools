@@ -1,20 +1,27 @@
 {
   "name": "node-private-tools",
   "version": "1.0.0",
-  "description": "",
+  "description": "personal node tools",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node ./src",
+    "clean:dist": "rimraf -rf dist",
+    "tsc": "npm run clean:dist && tsc -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "gen-city-mobile-sections": "./bin/gen-city-mobile-sections.ts",
-    "gen-kuaidi100": "./bin/gen-kuaidi100.ts",
-    "gen-svg-patterns": "./bin/gen-svg-patterns.ts",
-    "to-mpeg4": "./bin/to-mpeg4.ts"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empirefox/node-private-tools.git"
   },
-  "author": "",
+  "bin": {
+    "node-private-tools": "./bin/node-private-tools.js",
+    "gen-city-mobile-sections": "./bin/gen-city-mobile-sections.js",
+    "gen-kuaidi100": "./bin/gen-kuaidi100.js",
+    "gen-svg-patterns": "./bin/gen-svg-patterns.js",
+    "to-mpeg4": "./bin/to-mpeg4.js"
+  },
+  "author": "https://github.com/empirefox",
   "license": "ISC",
+  "homepage": "https://github.com/empirefox/node-private-tools#readme",
   "dependencies": {
     "axios": "^0.15.3",
     "cheerio": "^0.22.0",
@@ -28,11 +35,11 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.17.31",
-    "@types/core-js": "^0.9.35",
     "@types/fluent-ffmpeg": "0.0.2",
     "@types/node": "^6.0.52",
     "@types/yargs": "^6.3.3",
     "codelyzer": "^2.0.0-beta.3",
+    "rimraf": "^2.5.4",
     "ts-node": "^1.7.2",
     "tslint": "^4.0.2",
     "typescript": "^2.1.4"

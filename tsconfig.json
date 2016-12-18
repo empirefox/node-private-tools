@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "lib": [
-      "es5",
+      "dom",
       "es6"
     ],
-    "outDir": "build/compiled",
-    "target": "es5",
+    "baseUrl": "./src",
+    "outDir": "dist",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -20,6 +21,8 @@
     "strictNullChecks": true
   },
   "exclude": [
+    "bin",
+    "dist",
     "tmp",
     "temp",
     "build",
