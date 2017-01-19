@@ -16,6 +16,7 @@
     "node-private-tools": "./bin/node-private-tools.js",
     "arukas-attr": "./bin/arukas-attr.js",
     "gen-city-mobile-sections": "./bin/gen-city-mobile-sections.js",
+    "gen-go-tag-apis": "./bin/gen-go-tag-apis.js",
     "gen-kuaidi100": "./bin/gen-kuaidi100.js",
     "gen-svg-patterns": "./bin/gen-svg-patterns.js",
     "to-mpeg4": "./bin/to-mpeg4.js"

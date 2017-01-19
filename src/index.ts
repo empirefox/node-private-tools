@@ -2,6 +2,7 @@ import { command } from 'yargs';
 
 command('arukas-attr', '').
 command('gen-city-mobile-sections', '').
+command('gen-go-tag-apis', '').
 command('gen-kuaidi100', '').
 command('gen-svg-patterns', '').
 command('to-mpeg4', '').
