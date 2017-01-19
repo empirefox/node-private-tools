@@ -1,6 +1,6 @@
 {
   "name": "node-private-tools",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "personal node tools",
   "main": "src/index.ts",
   "scripts": {
@@ -33,7 +33,7 @@
     "pg": "^6.1.2",
     "rxjs": "^5.0.1",
     "stringify-object": "^3.1.0",
-    "typeorm": "0.0.5",
+    "typeorm": "0.0.6",
     "yargs": "^6.5.0"
   },
   "devDependencies": {
