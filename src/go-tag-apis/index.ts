@@ -5,7 +5,7 @@ import { writeFile } from '../common';
 const {writeFileSync} = require('fs-plus');
 
 let argv = usage('Usage: $0 [options]')
-  .example('$0 -o api.ts -i api.go -s Apis', 'retrive tcp host:port of arukas')
+  .example('$0 -o api.ts -i api.go -s Apis', 'generate api from golang')
   .options({
     o: {
       alias: 'out',

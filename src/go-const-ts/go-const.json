@@ -1,0 +1,9 @@
+{
+  "src": [
+    "~/go/src/github.com/empirefox/bongine/front"
+  ],
+  "dist": "./consts.ts",
+  "prettiesRoots": [
+    "./pretties"
+  ]
+}
