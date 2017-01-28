@@ -50,14 +50,14 @@ if (!structMatch) {
     if (match) {
       let p: string[] = [];
       // replace params
-      let u = match[2].replace(/\/\:(\w+)/, (m: string) => {
+      let u = match[2].replace(/\/\:(\w+)/g, (m: string) => {
         m = m.slice(2);
-        p.push(m);
+        p.push(`${m}: any`);
         return `/\${${m}}`
       });
       u = '`${apiOrigin}' + u + '`';
       if (p.length) {
-        u = `(${p.join()}: any) => ${u}`;
+        u = `(${p.join()}) => ${u}`;
       }
       let comment = match[3] ? `  ${match[3]}` : ''
       return `${match[1]}: ${u},${comment}`;
