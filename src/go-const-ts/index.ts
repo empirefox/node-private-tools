@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import { usage } from 'yargs';
 import { compile } from 'handlebars';
+import { mapValues, fromPairs, omitBy, isEmpty } from 'lodash';
 import { GoConst } from './go-const';
 import { parseGoFiles } from './parse-go-files';
 import { Prettier } from './pretty';
@@ -8,11 +9,17 @@ import { TplData, constsTpl } from './templates';
 
 const {normalize, writeFileSync} = require('fs-plus');
 
+interface GoFilesParsed {
+  consts: Dict<string[]>;
+  prettyJsons: Dict<Dict<string>>;
+}
+
 let argv = usage('Usage: $0 [options]')
   .example('$0 -c go-const.json', `generate enums from go consts, go-const.json file:
     {
       "src": ["./models"],
       "dist": "./consts.ts",
+      "defaultInlinePrettyTag": "tr",
       "prettiesRoots": [
         "./pretties"
       ]
@@ -32,9 +39,13 @@ let argv = usage('Usage: $0 [options]')
   .argv;
 
 let config = <GoConst>argv.c;
-let consts = parseGoFiles(config);
-let prettier = new Prettier(config, consts);
-let pretties = prettier.pretties();
+let constsParsed = parseGoFiles(config);
+
+let consts = mapValues(constsParsed, cs => cs.map(c => c.name));
+let prettyJsonsSrc = mapValues(constsParsed, cs => fromPairs(cs.filter(c => c.pretty).map(c => [c.name, c.pretty])));
+prettyJsonsSrc = <any>omitBy(prettyJsonsSrc, isEmpty);
+let prettier = new Prettier(config, consts, prettyJsonsSrc);
+let pretties = prettier.prettify();
 
 prettier.errors.forEach(err => console.log(err));
 
@@ -42,7 +53,7 @@ let tplData: TplData = {
   errors: prettier.errors,
   consts: Object.keys(consts).map(typ => ({ typ, enums: consts[typ] })),
   pretties: Object.keys(pretties).map(typ => ({ typ, pretty: pretties[typ].map(v => `'${v}'`) })),
-  pipes: Object.keys(prettier.prettieJsons).map(typ => ({ typ, name: prettier.prettieJsons[typ].pipe })),
+  pipes: Object.keys(prettier.prettyJsons).map(typ => ({ typ, name: prettier.prettyJsons[typ].pipe })),
 };
 
 let content = compile(constsTpl)(tplData);

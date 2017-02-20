@@ -1,9 +1,11 @@
 {
   "src": [
-    "~/go/src/github.com/empirefox/bongine/front"
+    "./src/go-const-ts"
   ],
   "dist": "./consts.ts",
+  "defaultInlinePrettyTag": "tr",
   "prettiesRoots": [
     "./pretties"
-  ]
+  ],
+  "includeTypes":["UserCashType"]
 }
