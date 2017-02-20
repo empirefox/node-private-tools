@@ -30,10 +30,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 {{#each consts}}export enum {{{typ}}} { {{{enums}}} }
 {{/each}}
 
-{{#each pretties}}export const pretties = {
-  {{{typ}}}: [{{{pretty}}}],
-}
+export const pretties = {
+{{#each pretties}}  {{{typ}}}: [{{{pretty}}}],
 {{/each}}
+}
 
 {{#each pipes}}@Pipe({ name: '{{{name}}}' })
 export class {{{typ}}}Pipe implements PipeTransform {

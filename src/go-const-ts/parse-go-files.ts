@@ -32,7 +32,7 @@ export function parseGoFiles(config: GoConst): Dict<Const[]> {
           // console.log(!m,m,line)
           return !m;
         });
-        let prettyMatch = reComment && match.length === 5 ? match[3].match(reComment) : null;
+        let prettyMatch = reComment && match.length === 5 && match[3] ? match[3].match(reComment) : null;
         let first = { name: match[1], pretty: prettyMatch ? prettyMatch[1] : null };
         types[match[2]] = [first, ...v];
       }
