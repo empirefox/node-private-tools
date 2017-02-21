@@ -42,4 +42,9 @@ export class {{{typ}}}Pipe implements PipeTransform {
   }
 }
 {{/each}}
+
+export const GEN_CONST_PIPES = [
+{{#each pipes}}  {{{typ}}}Pipe,
+{{/each}}
+];
 `;
