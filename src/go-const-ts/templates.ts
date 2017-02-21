@@ -33,12 +33,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export const pretties = {
 {{#each pretties}}  {{{typ}}}: [{{{pretty}}}],
 {{/each}}
-}
+};
 
 {{#each pipes}}@Pipe({ name: '{{{name}}}' })
 export class {{{typ}}}Pipe implements PipeTransform {
   transform(value: number) {
-    return pretties.{{{typ}}}[value] ? pretties.{{{typ}}}[value] : '';
+    return pretties.{{{typ}}}[value] || '';
   }
 }
 {{/each}}

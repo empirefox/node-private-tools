@@ -14,7 +14,7 @@ export function parseGoFiles(config: GoConst): Dict<Const[]> {
       let match: RegExpExecArray | null;
 
       let reComment = config.defaultInlinePrettyTag ?
-        new RegExp(`^\\s*\\/\\/\\s*${config.defaultInlinePrettyTag}:"([^"]+)"\\s*.*$`) : null;
+        new RegExp(`^\\s*\\/\\/\\.*\\s${config.defaultInlinePrettyTag}:"([^"]+)"\\s*.*$`) : null;
 
       // const? (word type = iota)( // xxx...)?(next line)
       // match: first_key type comment? all_others

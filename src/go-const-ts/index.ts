@@ -9,11 +9,6 @@ import { TplData, constsTpl } from './templates';
 
 const {normalize, writeFileSync} = require('fs-plus');
 
-interface GoFilesParsed {
-  consts: Dict<string[]>;
-  prettyJsons: Dict<Dict<string>>;
-}
-
 let argv = usage('Usage: $0 [options]')
   .example('$0 -c go-const.json', `generate enums from go consts, go-const.json file:
     {

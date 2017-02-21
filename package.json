@@ -1,6 +1,6 @@
 {
   "name": "node-private-tools",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "personal node tools",
   "main": "src/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "gen-go-tag-apis": "./bin/gen-go-tag-apis.js",
     "gen-kuaidi100": "./bin/gen-kuaidi100.js",
     "gen-svg-patterns": "./bin/gen-svg-patterns.js",
+    "gen-ts-trans": "./bin/ts-trans.js",
     "to-mpeg4": "./bin/to-mpeg4.js"
   },
   "author": "https://github.com/empirefox",
@@ -32,6 +33,7 @@
     "cheerio": "^0.22.0",
     "fluent-ffmpeg": "^2.1.0",
     "fs-plus": "^2.9.3",
+    "globby": "^6.1.0",
     "handlebars": "^4.0.6",
     "iconv-lite": "^0.4.15",
     "lodash": "^4.17.4",
@@ -40,6 +42,7 @@
     "stringify-object": "^3.1.0",
     "typeorm": "0.0.8",
     "typescript-formatter": "^4.0.1",
+    "unquote": "^1.1.0",
     "yargs": "^6.5.0"
   },
   "devDependencies": {
