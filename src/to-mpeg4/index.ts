@@ -4,7 +4,7 @@ import { encode } from 'iconv-lite';
 import { convert } from './convert';
 const fs = require('fs-plus');
 
-let argv: { o: string; i: string } = usage('Usage: $0 [options]')
+let argv: { o: string; i: string, s: string } = usage('Usage: $0 [options]')
   .example('$0 -o ~/mpeg4 -i ~/mv', 'convert from `mv` to `mpeg4`')
   .options({
     o: {
@@ -21,12 +21,17 @@ let argv: { o: string; i: string } = usage('Usage: $0 [options]')
       default: '~/.cache/kuwo/mv',
       coerce: (arg: string) => fs.normalize(arg),
     },
+    s: {
+      alias: 'size',
+      nargs: 1,
+      describe: 'output size, ie 640:360',
+    },
   })
   .help('h')
   .alias('h', 'help')
   .argv;
 
-let {i: src, o: dest} = argv;
+let {i: src, o: dest, s: size} = argv;
 let invalidChars = /[\\/:*?\"<>|]/g;
 let replaceChar = '_';
 let exists = new Set(fs.listSync(dest, ['mp4']).map((name: string) => basename(name, '.mp4')));
@@ -52,7 +57,7 @@ function next(index: number) {
         ext: '.mp4',
         name: dstName,
       });
-      convert(src, dst).then(err => {
+      convert(src, dst, size).then(err => {
         if (err) {
           console.error('An error occurred: ' + err.message);
         } else {
