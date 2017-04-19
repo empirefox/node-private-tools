@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { usage } from 'yargs';
 import { compile } from 'handlebars';
-import { mapValues, fromPairs, omitBy, isEmpty } from 'lodash';
+import { mapValues, fromPairs, omitBy, template, isEmpty } from 'lodash';
 import { GoConst } from './go-const';
 import { parseGoFiles } from './parse-go-files';
 import { Prettier } from './pretty';
@@ -26,7 +26,7 @@ let argv = usage('Usage: $0 [options]')
       nargs: 1,
       describe: 'config file, support .json',
       default: normalize('./go-const.json'),
-      coerce: (arg: string) => JSON.parse(readFileSync(arg, 'utf8')),
+      coerce: (arg: string) => JSON.parse(readFileSync(normalize(template(arg)(process.env)), 'utf8')),
     },
   })
   .help('h')
@@ -52,4 +52,4 @@ let tplData: TplData = {
 };
 
 let content = compile(constsTpl)(tplData);
-writeFileSync(normalize(config.dist), content, { encoding: 'utf8' });
+writeFileSync(normalize(template(config.dist)(process.env)), content, { encoding: 'utf8' });

@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { template } from 'lodash';
 import { GoConst, Const } from './go-const';
 
 const {listSync, normalize, writeFileSync} = require('fs-plus');
@@ -8,7 +9,7 @@ const wordRe = /^\w+$/;
 export function parseGoFiles(config: GoConst): Dict<Const[]> {
   let types = <Dict<Const[]>>{};
   config.src.forEach(dir => {
-    let list: string[] = listSync(normalize(dir), ['go']);
+    let list: string[] = listSync(normalize(template(dir)(process.env)), ['go']);
     list.forEach(path => {
       let file = readFileSync(path, 'utf8');
       let match: RegExpExecArray | null;

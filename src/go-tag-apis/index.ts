@@ -1,7 +1,10 @@
 import { readFileSync } from 'fs';
+import { template } from 'lodash';
 import { usage } from 'yargs';
 import { processString } from "typescript-formatter";
 import { formateWrite } from '../common';
+
+const {normalize} = require('fs-plus');
 
 let argv = usage('Usage: $0 [options]')
   .example('$0 -o api.ts -i api.go -s Apis', 'generate api from golang')
@@ -11,13 +14,14 @@ let argv = usage('Usage: $0 [options]')
       nargs: 1,
       describe: 'output file, support .ts',
       demand: true,
-      coerce: (arg: string) => /\.ts$/.test(arg) ? arg : `${arg}.ts`,
+      coerce: (arg: string) => normalize(template(/\.ts$/.test(arg) ? arg : `${arg}.ts`)(process.env)),
     },
     i: {
       alias: 'in',
       nargs: 1,
       describe: 'input file, support .go',
       default: 'api.go',
+      coerce: (arg: string) => normalize(template(arg)(process.env)),
     },
     s: {
       alias: 'struct',

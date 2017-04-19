@@ -8,9 +8,13 @@ export function formateWrite(fileName: string, content: string) {
     replace: true,
     verify: false,
     tsconfig: true,
+    tsconfigFile: null,
     tslint: true,
+    tslintFile: null,
     editorconfig: true,
-    tsfmt: true
+    vscode: true,
+    tsfmt: true,
+    tsfmtFile: null,
   }).then(result => {
     if (result.error) {
       console.error(result.message);
