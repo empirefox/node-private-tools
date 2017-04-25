@@ -2,10 +2,15 @@
   "src": [
     "./src/go-const-ts"
   ],
-  "dist": "./consts.ts",
-  "defaultInlinePrettyTag": "tr",
+  "dist": "./dist-consts/",
+  "langs": [
+    "en",
+    "zh"
+  ],
   "prettiesRoots": [
     "./pretties"
   ],
-  "includeTypes":["UserCashType"]
+  "includeTypes": [
+    "UserCashType"
+  ]
 }

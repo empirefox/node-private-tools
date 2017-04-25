@@ -1,5 +1,8 @@
 import { readFileSync } from 'fs';
+import { template } from 'lodash';
 
-export function load(path: string) {
-  return JSON.parse(readFileSync(path, 'utf8'));
+const { normalize } = require('fs-plus');
+
+export function loadJson(path: string) {
+  return JSON.parse(readFileSync(normalize(template(path)(process.env)), 'utf8'));
 }

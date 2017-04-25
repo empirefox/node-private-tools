@@ -1,20 +1,38 @@
-export interface Pretty {
-  pipe?: string;
-  path?: string;
-}
-
 export interface GoConst {
   src: string[];
   dist: string;
-  defaultInlinePrettyTag?: string; // will be overwrite by [pretty].json file
+  langs: string[]; // will be overwrite by [pretty].json file
   includeTypes?: string[]; // priority: includeTypes>excludeTypes
   excludeTypes?: string[]; // priority: includeTypes>excludeTypes
   prettiesRoots?: string[];
-  pretties?: Dict<Pretty>;
-  prettyPipePrefix?: string;
+  pretties?: Dict<Dict<string>>; // type.lang.path
+  pipePrefix?: string;
 }
 
-export interface Const {
+export interface ConstCommentElement {
   name: string;
-  pretty: string | null;
+  tag?: string;
+}
+
+export interface ConstCommentType {
+  type: string;
+  elements: ConstCommentElement[];
+}
+
+export interface ConstTypeTr {
+  name: string;
+  tr: string;
+}
+
+export interface ConstTypeTrs {
+  lang: string;
+  trs: ConstTypeTr[];
+  langJson: string[];
+}
+
+export interface ConstType {
+  type: string;
+  pipe: string;
+  langs: ConstTypeTrs[];
+  names: string[];
 }

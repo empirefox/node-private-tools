@@ -20,5 +20,4 @@ module.exports = ${content};
   }
 
   writeFileSync(out, content, { encoding: 'utf8' });
-  process.stdout.write('done!\n');
 }

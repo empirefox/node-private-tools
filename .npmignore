@@ -65,3 +65,5 @@ npm-debug.log
 src/
 tsconfig.json
 tslint.json
+dist-consts/
+pretties/

@@ -1,20 +1,21 @@
-import { readFileSync } from 'fs';
+import { join } from 'path';
 import { usage } from 'yargs';
 import { compile } from 'handlebars';
-import { mapValues, fromPairs, omitBy, template, isEmpty } from 'lodash';
+import { template } from 'lodash';
+
+import { formateWrite, writeFile, loadJson } from '../common';
 import { GoConst } from './go-const';
-import { parseGoFiles } from './parse-go-files';
 import { Prettier } from './pretty';
-import { TplData, constsTpl } from './templates';
+import { indexBasePipeTpl, pipeTpl, pipeIndexTpl, enumTpl, enumIndexTpl } from './templates';
 
-const {normalize, writeFileSync} = require('fs-plus');
+const { normalize, writeFileSync, removeSync } = require('fs-plus');
 
-let argv = usage('Usage: $0 [options]')
+const argv = usage('Usage: $0 [options]')
   .example('$0 -c go-const.json', `generate enums from go consts, go-const.json file:
     {
       "src": ["./models"],
-      "dist": "./consts.ts",
-      "defaultInlinePrettyTag": "tr",
+      "dist": "./consts/",
+      "langs": ["zh"],
       "prettiesRoots": [
         "./pretties"
       ]
@@ -26,30 +27,39 @@ let argv = usage('Usage: $0 [options]')
       nargs: 1,
       describe: 'config file, support .json',
       default: normalize('./go-const.json'),
-      coerce: (arg: string) => JSON.parse(readFileSync(normalize(template(arg)(process.env)), 'utf8')),
+      coerce: (arg: string) => loadJson(arg),
     },
   })
   .help('h')
   .alias('h', 'help')
   .argv;
 
-let config = <GoConst>argv.c;
-let constsParsed = parseGoFiles(config);
+const pipeItem = compile(pipeTpl);
+const enumItem = compile(enumTpl);
+const pipeIndex = compile(pipeIndexTpl);
+const enumIndex = compile(enumIndexTpl);
 
-let consts = mapValues(constsParsed, cs => cs.map(c => c.name));
-let prettyJsonsSrc = mapValues(constsParsed, cs => fromPairs(cs.filter(c => c.pretty).map(c => [c.name, c.pretty])));
-prettyJsonsSrc = <any>omitBy(prettyJsonsSrc, isEmpty);
-let prettier = new Prettier(config, consts, prettyJsonsSrc);
-let pretties = prettier.prettify();
+const config = <GoConst>argv.c;
+const dist = normalize(template(config.dist)(process.env));
 
-prettier.errors.forEach(err => console.log(err));
+const prettier = new Prettier(config);
 
-let tplData: TplData = {
-  errors: prettier.errors,
-  consts: Object.keys(consts).map(typ => ({ typ, enums: consts[typ] })),
-  pretties: Object.keys(pretties).map(typ => ({ typ, pretty: pretties[typ].map(v => `'${v}'`) })),
-  pipes: Object.keys(prettier.prettyJsons).map(typ => ({ typ, name: prettier.prettyJsons[typ].pipe })),
-};
+const errorsPath = join(dist, `go-const-errors.log`);
+removeSync(errorsPath);
+if (prettier.errors.length) {
+  writeFileSync(errorsPath, prettier.errors.join('\n'), { encoding: 'utf8' });
+}
 
-let content = compile(constsTpl)(tplData);
-writeFileSync(normalize(template(config.dist)(process.env)), content, { encoding: 'utf8' });
+formateWrite(join(dist, 'pipe/index-base.pipe.ts'), indexBasePipeTpl);
+
+formateWrite(join(dist, `pipe.ts`), pipeIndex(prettier));
+formateWrite(join(dist, `enum.ts`), enumIndex(prettier));
+
+prettier.types.forEach(type => {
+  formateWrite(join(dist, `pipe/${type.pipe}.pipe.ts`), pipeItem(type));
+  formateWrite(join(dist, `enum/${type.pipe}.enum.ts`), enumItem(type));
+  // names
+  writeFile(join(dist, `names/${type.pipe}.json`), type.names);
+  // xlangJson
+  type.langs.forEach(lang => writeFile(join(dist, `xlang/${type.pipe}/${lang.lang}.json`), lang.langJson));
+});

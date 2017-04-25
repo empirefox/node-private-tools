@@ -1,6 +1,6 @@
 {
   "TUserCashUnknown": "unknown2",
   "TUserCashPrepay": "prepay2",
-  "TUserCashPrepayBack": "",
-  "TUserCashTrade": "trade"
+  "TUserCashPrepayBack": "prepayback2",
+  "TUserCashTrade": "trade2"
 }
