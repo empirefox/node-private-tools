@@ -12,7 +12,7 @@ export abstract class IndexBasePipe implements PipeTransform {
 
   transform(index: number) {
     if (!this.sub) {
-      this.sub = this.xlangJsonService.load(this.xlangId).subscribe(tr => this.tr = tr);
+      this.sub = this.xlangJsonService.load(this.xlangId).subscribe(tr => this.tr = tr.json);
     }
     return this.tr[index] || '';
   }
