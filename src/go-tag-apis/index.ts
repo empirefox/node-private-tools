@@ -2,9 +2,12 @@ import { readFileSync } from 'fs';
 import { template } from 'lodash';
 import { usage } from 'yargs';
 import { processString } from "typescript-formatter";
-import { formateWrite } from '../common';
+import * as ajv from 'ajv';
 
-const {normalize} = require('fs-plus');
+import { formateWrite } from '../common';
+import { GoTagApisConfig } from './config';
+
+const { normalize } = require('fs-plus');
 
 let argv = usage('Usage: $0 [options]')
   .example('$0 -o api.ts -i api.go -s Apis', 'generate api from golang')

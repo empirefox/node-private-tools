@@ -4,6 +4,7 @@
   "description": "personal node tools",
   "main": "src/index.js",
   "scripts": {
+    "json2ts": "json2ts src/go-tag-apis/schema.json src/go-tag-apis/config.ts",
     "clean:dist": "rimraf -rf dist dist-consts",
     "tsc": "npm run clean:dist && tsc -d",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,6 +28,7 @@
   "license": "ISC",
   "homepage": "https://github.com/empirefox/node-private-tools#readme",
   "dependencies": {
+    "ajv": "^5.0.0",
     "axios": "^0.16.1",
     "cheerio": "^0.22.0",
     "fluent-ffmpeg": "^2.1.0",
@@ -51,6 +53,7 @@
     "@types/node": "^7.0.12",
     "@types/yargs": "^6.6.0",
     "codelyzer": "^2.0.1",
+    "json-schema-to-typescript": "^4.2.0",
     "rimraf": "^2.6.0",
     "ts-node": "^3.0.2",
     "tslint": "^5.1.0",
