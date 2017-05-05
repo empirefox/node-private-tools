@@ -13,18 +13,18 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
+    "declarationDir": "dist/types",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "stripInternal": true,
     "pretty": true,
     "strictNullChecks": true
   },
-  "exclude": [
-    "bin",
-    "dist",
-    "tmp",
-    "temp",
-    "build",
-    "node_modules"
-  ]
+  "include": [
+    "src",
+    "typings.d.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": false
+  }
 }

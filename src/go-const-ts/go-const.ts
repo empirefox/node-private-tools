@@ -1,13 +1,4 @@
-export interface GoConst {
-  src: string[];
-  dist: string;
-  langs: string[]; // will be overwrite by [pretty].json file
-  includeTypes?: string[]; // priority: includeTypes>excludeTypes
-  excludeTypes?: string[]; // priority: includeTypes>excludeTypes
-  prettiesRoots?: string[];
-  pretties?: Dict<Dict<string>>; // type.lang.path
-  pipePrefix?: string;
-}
+export { GoConstTsConfig } from '../schemas';
 
 export interface ConstCommentElement {
   name: string;

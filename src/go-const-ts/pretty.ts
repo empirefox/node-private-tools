@@ -1,23 +1,18 @@
 import { join } from 'path';
 import { isEmpty, omitBy } from 'lodash';
 import { lookupGotag, loadJson } from '../common';
-import { GoConst, ConstCommentType, ConstTypeTr, ConstTypeTrs, ConstType } from './go-const';
+import { GoConstTsConfig, ConstCommentType, ConstTypeTr, ConstTypeTrs, ConstType } from './go-const';
 import { parseGoComment } from './parse-go-files';
 
 const { isFileSync, normalize } = require('fs-plus');
 
 export class Prettier {
-  types: ConstType[];
   errors: string[] = [];
-  private roots: string[];
 
-  constructor(private config: GoConst) {
-    // init roots
-    let roots = (config.prettiesRoots || []).slice();
-    roots[0] = roots[0] || './pretties';
-    this.roots = roots.map(root => normalize(root));
+  constructor(private config: GoConstTsConfig) { }
 
-    this.types = this.parseConstCommentTypes(parseGoComment(config));
+  parse(): Promise<ConstType[]> {
+    return parseGoComment(this.config).then(types => this.parseConstCommentTypes(types))
   }
 
   private parseConstCommentTypes(commentTypes: ConstCommentType[]): ConstType[] {
@@ -41,7 +36,7 @@ export class Prettier {
         }
         return { lang, trs, langJson };
       });
-      const pipe = this.config.pipePrefix || type;
+      const pipe = this.config.pipePrefix + type;
       const names = langs[0].trs.map(tr => tr.name);
       return { type, pipe, langs, names };
     });
@@ -49,7 +44,7 @@ export class Prettier {
   }
 
   private findConfigPretty(typ: string, lang: string): Dict<string> {
-    const cps = this.config.pretties;
+    const cps: Dict<Dict<string>> | undefined = this.config.pretties;
     const cp = cps && cps[typ];
     const path = cp && cp[lang] || this.findPrettyPath(`${typ}-${lang}`) || this.findPrettyPath(`${typ}/${lang}`);
     const json = path ? omitBy(loadJson(path), isEmpty) : {};
@@ -57,6 +52,8 @@ export class Prettier {
   }
 
   private findPrettyPath(name: string) {
-    return this.roots.map(root => join(root, `${name}.json`)).find(isFileSync);
+    const roots = this.config.prettiesRoots;
+    return roots && roots.map(root => join(root, `${name}.json`)).find(isFileSync);
   }
+
 }

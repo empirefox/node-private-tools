@@ -1,19 +1,27 @@
 const ffmpeg = require('fluent-ffmpeg');
 
-export function convert(src: string, dst: string, size?: string) {
-  let options = [
-    '-c:v mpeg4',
-    '-q:v 1',
-    '-c:a copy',
-  ];
-  if (size) {
-    options.push(`-vf scale=${size}`);
+// ffmpeg -i 2.a.mp4 -acodec copy -f segment -segment_time 300 -vcodec copy -reset_timestamps 1 -map 0 ./poetry2/2.a/2.a.%d.mp4
+export class Converter {
+
+  static initOutputOptions(outputOptions: string[] = []): string[] {
+    return [
+      '-c:v mpeg4',
+      '-q:v 1',
+      '-c:a copy',
+      ...outputOptions,
+    ];
   }
-  return new Promise<Error>(resolve => {
-    ffmpeg(src)
-      .outputOptions(options)
-      .on('error', (err: Error) => resolve(err))
-      .on('end', () => resolve())
-      .save(dst);
-  });
+
+  constructor(public basename: string, private src: string, private dst: string, private outputOptions: string[] = []) { }
+
+  convert() {
+    return new Promise<Error | undefined>(resolve => {
+      ffmpeg(this.src)
+        .outputOptions(this.outputOptions)
+        .on('error', (err: Error) => resolve(err))
+        .on('end', () => resolve())
+        .save(this.dst);
+    });
+  }
+
 }

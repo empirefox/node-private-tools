@@ -7,8 +7,8 @@ export interface Pattern {
   font: string;
 }
 
-export function parse() {
-  return <Promise<Pattern[]>>axios.get('https://rawgit.com/progers/Patterns-Gallery/master/index.html').then(res => {
+export function parse(url: string): Promise<Pattern[]> {
+  return axios.get(url).then(res => {
     let $ = load(res.data);
     return $("#patterns > li").toArray().map(e => {
       let li = $(e);

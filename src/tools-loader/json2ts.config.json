@@ -1,0 +1,24 @@
+{
+  "$schema": "../schemas/tools-loader.json",
+  "version": "1.7.0",
+  "tasks": [
+    {
+      "$tool": "json2ts",
+      "src": [
+        "src/schemas/*.json"
+      ],
+      "dist": "src/schemas/config.ts"
+    },
+    {
+      "$tool": "json2ts",
+      "src": [
+        "src/schemas/json2ts.json"
+      ],
+      "dist": "src/json2ts/config.ts"
+    }
+  ],
+  "ajv": {
+    "verbose": true,
+    "useDefaults": true
+  }
+}

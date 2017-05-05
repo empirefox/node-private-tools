@@ -1,0 +1,66 @@
+{
+  "$schema": "../src/schemas/tools-loader.json",
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "$tool": "go-const-ts",
+      "src": [
+        "./test/go-const-ts/*.go"
+      ],
+      "dist": "./test/dist/go-const-ts/",
+      "langs": [
+        "en",
+        "zh"
+      ],
+      "prettiesRoots": [
+        "./test/go-const-ts/pretties"
+      ],
+      "includeTypes": [
+        "UserCashType"
+      ]
+    },
+    {
+      "$tool": "go-tag-apis",
+      "src": [
+        "./test/go-tag-apis/*.go"
+      ],
+      "structs": [
+        "Apis"
+      ],
+      "dist": "./test/dist/go-tag-apis/"
+    },
+    {
+      "$tool": "kuaidi100",
+      "dist": "./test/dist/kuaidi100/companys.json"
+    },
+    {
+      "$tool": "kuaidi100",
+      "dist": "./test/dist/kuaidi100/companys.ts"
+    },
+    {
+      "$tool": "svg-patterns",
+      "dist": "./test/dist/svg-patterns/patterns.json"
+    },
+    {
+      "$tool": "svg-patterns",
+      "dist": "./test/dist/svg-patterns/patterns.ts"
+    },
+    {
+      "$tool": "ts-trans",
+      "src": [
+        "./test/ts-trans/*.ts"
+      ],
+      "dist": "./test/dist/ts-trans/",
+      "tag": "tr",
+      "langs": [
+        "en",
+        "zh"
+      ],
+      "pipePrefix": "tt"
+    }
+  ],
+  "ajv": {
+    "verbose": true,
+    "useDefaults": true
+  }
+}
