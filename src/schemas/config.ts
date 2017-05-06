@@ -223,6 +223,10 @@ export interface ToolsLoaderConfig {
   ajv?: {
     [k: string]: any;
   };
+  /**
+   * Addition RunnerWithSchema[].
+   */
+  additionRunners?: string[];
 }
 
 /**

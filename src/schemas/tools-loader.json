@@ -49,6 +49,13 @@
     },
     "ajv": {
       "type": "object"
+    },
+    "additionRunners": {
+      "description": "Addition RunnerWithSchema[].",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": [
