@@ -1,4 +1,4 @@
-
+/* tslint:disable */
 import { format } from 'date-fns';
 import * as Ajv from 'ajv';
 

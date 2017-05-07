@@ -5,6 +5,7 @@ import { RunnerWithSchema } from './common';
 import { ToolsLoaderConfig } from './schemas';
 import { ToolsLoader, RUNNERS } from './runners';
 
+// tslint:disable-next-line:no-eval
 const lazyRequire = eval('require');
 
 export function bootstrap(loaderConfig: ToolsLoaderConfig, additionRunners: RunnerWithSchema[]): Promise<any> {

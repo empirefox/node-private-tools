@@ -4,7 +4,7 @@
   "description": "personal node tools",
   "keywords": [],
   "main": "dist/node-private-tools.js",
-  "typings": "dist/src/node-private-tools.d.ts",
+  "typings": "dist/types/node-private-tools.d.ts",
   "files": [
     "dist"
   ],
@@ -25,7 +25,7 @@
   "scripts": {
     "init-json2ts": "cd src/schemas/ && json2ts ./json2ts.json ../json2ts/config.ts",
     "json2ts": "ts-node ./src/tools-loader/json2ts.ts",
-    "lint": "tslint -e **/node_modules/** -e **/dist/** -t codeFrame **/*.ts ",
+    "lint": "tslint -e **/node_modules/** -e **/dist/** -e **/test/dist/** -t codeFrame **/*.ts ",
     "prebuild": "rimraf dist && rimraf docs && rimraf test/dist",
     "dev": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack -p",
@@ -105,6 +105,8 @@
     "yargs": "^8.0.1"
   },
   "devDependencies": {
+    "@angular/compiler": "^4.1.1",
+    "@angular/core": "^4.1.1",
     "@types/cheerio": "^0.22.1",
     "@types/fluent-ffmpeg": "^2.1.0",
     "@types/handlebars": "^4.0.32",
@@ -131,6 +133,7 @@
     "prompt": "^1.0.0",
     "replace-in-file": "^2.3.2",
     "rimraf": "^2.5.4",
+    "rxjs": "^5.3.1",
     "semantic-release": "^6.3.2",
     "ts-jest": "^19.0.0",
     "ts-node": "^3.0.2",
@@ -144,6 +147,7 @@
     "validate-commit-msg": "^2.10.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.4.1",
-    "webpack-node-externals": "^1.5.4"
+    "webpack-node-externals": "^1.5.4",
+    "zone.js": "^0.8.10"
   }
 }
