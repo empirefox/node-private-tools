@@ -28,11 +28,16 @@ export class Arukas implements Runner {
         password: this.config.secret || env.ARUKAS_JSON_API_SECRET,
       },
     }).then(res => {
-      let portMapping = res.data.data[0].attributes.port_mappings[0][0];
-      let ip = portMapping.host.slice(6, portMapping.host.indexOf(".jp", 6)).replace(/-/g, '.');
-      portMapping.addr = `${ip}:${portMapping.service_port}`;
-      portMapping.host = `${portMapping.host}:${portMapping.service_port}`;
-      console.log(JSON.stringify(portMapping, null, ' '));
+      const portMapping = res.data.data[0].attributes.port_mappings[0][0];
+      const ip = portMapping.host.slice(6, portMapping.host.indexOf('.jp', 6)).replace(/-/g, '.');
+      const result: any = {};
+      switch (this.config.attr) {
+        case 'host':
+          result.host = `${ip}:${portMapping.service_port}`;
+          break;
+      }
+      console.log(JSON.stringify(result, null, ' '));
+      return result;
     });
   }
 

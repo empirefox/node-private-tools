@@ -1,3 +1,4 @@
+// tslint:disable:max-line-length no-trailing-whitespace quotemark
 /**
  * Retrive attributes of arukas.
  */

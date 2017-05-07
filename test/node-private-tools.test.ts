@@ -1,14 +1,15 @@
-import DummyClass from '../src/node-private-tools'
+import 'reflect-metadata';
+import { Arukas } from '../src/node-private-tools'
 
 /**
- * Dummy test
+ * Arukas test
  */
-describe('Dummy test', () => {
+describe('Arukas test', () => {
   it('works if true is truthy', () => {
     expect(true).toBeTruthy()
   })
 
-  it('DummyClass is instantiable', () => {
-    expect(new DummyClass()).toBeInstanceOf(DummyClass)
+  it('Arukas is instantiable', () => {
+    expect(new Arukas(null)).toBeInstanceOf(Arukas)
   })
 })

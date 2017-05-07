@@ -1,4 +1,4 @@
-import { Table, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Table, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Table('phone')
 export class Phone {

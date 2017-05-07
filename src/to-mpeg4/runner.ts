@@ -25,7 +25,8 @@ export class ToMpeg4 implements Runner {
   constructor(public config: ToMpeg4Config) { }
 
   run(): Promise<any> {
-    let { src, dist, outputOptions = [] } = this.config;
+    const { src, dist } = this.config;
+    let { outputOptions = [] } = this.config;
     fs.makeTreeSync(dist);
     console.log(`target dir: ${dist}`);
     outputOptions = Converter.initOutputOptions(outputOptions);
@@ -43,24 +44,24 @@ export class ToMpeg4 implements Runner {
     ]).then(([exists, mvs]) => {
       // add all non-exist to converters
       const converters: Converter[] = [];
-      mvs.forEach(src => {
-        const dstName = encode(parse(src).name, 'utf8').toString().replace(invalidChars, replaceChar);
+      mvs.forEach(mv => {
+        const dstName = encode(parse(mv).name, 'utf8').toString().replace(invalidChars, replaceChar);
         if (exists.has(dstName)) {
           console.log(`exist: ${dstName}`);
         } else {
           const dst = format({
-            root: "/",
+            root: '/',
             dir: dist,
             base: '',
             ext: '.mp4',
             name: dstName,
           });
-          converters.push(new Converter(dstName, src, dst, outputOptions));
+          converters.push(new Converter(dstName, mv, dst, outputOptions));
         }
       });
 
       const total = converters.length;
-      let converted: string[] = [];
+      const converted: string[] = [];
       let failed = 0;
       // convert one by one
       return converters.reduce(

@@ -1,5 +1,5 @@
-import { createConnection, DriverOptions, Connection } from "typeorm";
-import { Phone } from "./phone";
+import { createConnection, DriverOptions, Connection } from 'typeorm';
+import { Phone } from './phone';
 
 export function connect(driver: DriverOptions): Promise<Connection> {
   return createConnection({

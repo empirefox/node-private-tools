@@ -26,7 +26,4 @@ if (!valid) {
   process.exit(1);
 }
 
-runner.run().then(
-  _ => console.log('done'),
-  err => console.error(err),
-);
+runner.run().catch(err => console.error(err));

@@ -18,8 +18,8 @@ export class Kuaidi100 implements Runner {
     // https://rawgit.com/simman/Kuaidi100/master/companys.json
     // https://rawgit.com/liyiorg/common/master/src/main/java/com/github/liyiorg/common/api/companys.json
     return axios.get(this.config.url).then(res => {
-      let data: { number: string, name: string }[] = res.data;
-      let map: any = {};
+      const data: { number: string, name: string }[] = res.data;
+      const map: any = {};
       data.forEach(com => {
         map[com.number] = { name: com.name };
       });

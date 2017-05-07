@@ -39,31 +39,33 @@ export class TsTypeTagParser {
     const sourceFile = ts.createSourceFile(filename, readFileSync(filename).toString(), ts.ScriptTarget.ES2016, false, ts.ScriptKind.TS);
 
     const types: CommentTagEntriesTypeDict = {};
-    (sourceFile.statements || []).filter(iinter => iinter.kind == ts.SyntaxKind.InterfaceDeclaration && this.findTagComment(iinter) !== 'disabled').forEach(iinter => {
-      const entries: Entry[] = [];
-      const inter = <ts.InterfaceDeclaration>iinter;
-      inter.members.filter(field => field.name && field.kind === ts.SyntaxKind.PropertySignature).forEach(field => {
-        const value = this.findTagComment(field);
-        if (value !== undefined) {
-          const fieldName: ts.Identifier = <any>field.name;
-          entries.push({ field: fieldName.text, value });
-          return;
+    const statements = sourceFile.statements || [];
+    statements.filter(iinter => iinter.kind === ts.SyntaxKind.InterfaceDeclaration && this.findTagComment(iinter) !== 'disabled')
+      .forEach(iinter => {
+        const entries: Entry[] = [];
+        const inter = <ts.InterfaceDeclaration>iinter;
+        inter.members.filter(field => field.name && field.kind === ts.SyntaxKind.PropertySignature).forEach(field => {
+          const value = this.findTagComment(field);
+          if (value !== undefined) {
+            const fieldName: ts.Identifier = <any>field.name;
+            entries.push({ field: fieldName.text, value });
+            return;
+          }
+        });
+        if (entries.length) {
+          let typeName = inter.name.text;
+          typeName = inameRe.test(typeName) ? typeName.slice(1) : typeName;
+          types[typeName] = entries;
         }
       });
-      if (entries.length) {
-        let typeName = inter.name.text;
-        typeName = inameRe.test(typeName) ? typeName.slice(1) : typeName;
-        types[typeName] = entries;
-      }
-    });
 
     return types;
   }
 
   findTagComment(node: any): string | undefined {
-    for (let jsDoc of node['jsDoc'] || []) {
+    for (const jsDoc of node['jsDoc'] || []) {
       const tags: ts.JSDocTag[] = (jsDoc && jsDoc.tags) || [];
-      const tag = tags.find(tag => tag && tag.tagName && tag.tagName.text === this.commentTagName);
+      const tag = tags.find(item => item && item.tagName && item.tagName.text === this.commentTagName);
       if (tag) {
         let comment = tag.comment;
         if (comment && (comment = comment.trim())) {

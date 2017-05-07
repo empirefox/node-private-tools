@@ -26,7 +26,7 @@ const plugins = [
     chunks: ['common', 'index']
   }),
   new webpack.DefinePlugin({
-    VERSION: JSON.stringify(require("./package.json").version)
+    VERSION: JSON.stringify(require('./package.json').version)
   }),
 ]
 
@@ -81,6 +81,6 @@ export default {
     ]
   },
   plugins: plugins,
-  target: "node",
+  target: 'node',
   externals: [nodeExternals()],
 }

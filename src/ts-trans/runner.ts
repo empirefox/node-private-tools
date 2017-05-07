@@ -10,6 +10,8 @@ const pipeIndex = compile(pipeIndexTpl);
 
 export class TsTrans implements Runner {
 
+  private parser: TsTypeTagParser;
+
   static forLoader(): RunnerWithSchema {
     return {
       $tool: 'ts-trans',
@@ -17,8 +19,6 @@ export class TsTrans implements Runner {
       runner: TsTrans,
     };
   }
-
-  private parser: TsTypeTagParser;
 
   constructor(public config: TsTransConfig) {
     this.parser = new TsTypeTagParser(config.tag);

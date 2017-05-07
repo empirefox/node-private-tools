@@ -52,17 +52,14 @@
   },
   "jest": {
     "globals": {
-      "__TS_CONFIG__": {
-        "module": "commonjs"
-      }
+      "__TS_CONFIG__": "tsconfig.json"
     },
     "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.ts$",
     "moduleFileExtensions": [
       "ts",
-      "tsx",
       "js"
     ],
     "modulePathIgnorePatterns": [
@@ -98,6 +95,7 @@
     "lodash": "^4.17.4",
     "ora": "^1.2.0",
     "pg": "^6.1.5",
+    "reflect-metadata": "^0.1.10",
     "stringify-object": "^3.2.0",
     "typeorm": "0.0.11",
     "typescript-formatter": "^5.1.3",

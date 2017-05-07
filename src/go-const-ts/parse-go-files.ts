@@ -14,24 +14,24 @@ export function parseGoComment(config: GoConstTsConfig): Promise<ConstCommentTyp
     let match: RegExpExecArray | null;
 
     while (match = reTyp.exec(content)) {
-      let v: ConstCommentElement[] = [];
+      const v: ConstCommentElement[] = [];
       match[match.length === 5 ? 4 : 3].split('\n').some(line => {
-        let m = line.match(lineRe);
+        const m = line.match(lineRe);
         // only if name exist
         // m[1]: name
         // m[2]: comment
         if (m && m[1] && wordRe.test(m[1])) {
           // get pretty only if tag set and comment exist
           // tagMatch[1]: tag content
-          let tagMatch = m[2] && m[2].match(reCommentTag) || [];
+          const tagMatch = m[2] && m[2].match(reCommentTag) || [];
           v.push({ name: m[1], tag: tagMatch[1] });
         }
         // console.log(!m,m,line)
         return !m;
       });
       // tagMatch[1]: tag content
-      let tagMatch = reCommentTag && match.length === 5 && match[3] && match[3].match(reCommentTag) || [];
-      let first = { name: match[1], tag: tagMatch[1] };
+      const tagMatch = reCommentTag && match.length === 5 && match[3] && match[3].match(reCommentTag) || [];
+      const first = { name: match[1], tag: tagMatch[1] };
       types.push({ type: match[2], elements: [first, ...v] });
     }
 

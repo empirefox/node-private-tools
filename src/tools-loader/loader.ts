@@ -79,11 +79,11 @@ export class ToolsLoader {
     }
 
     // validate tasks
-    const errors = tasks.map(task => {
-      const validate = this.ajv.getSchema(task.$tool);
-      const valid = validate(task);
-      return validate.errors || [];
-    }).reduce((a, b) => [...a, ...b], []);
+    const errors = (<ErrorObject[]>[]).concat(...tasks.map(task => {
+      const validateFn = this.ajv.getSchema(task.$tool);
+      validateFn(task);
+      return validateFn.errors || [];
+    }));
 
     return errors.length ? errors : undefined;
   }

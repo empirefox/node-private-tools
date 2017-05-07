@@ -1,4 +1,4 @@
-import { processString } from "typescript-formatter";
+import { processString } from 'typescript-formatter';
 
 const { writeFileSync } = require('fs-plus');
 

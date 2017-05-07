@@ -1,3 +1,4 @@
+// tslint:disable:max-line-length no-trailing-whitespace quotemark
 export interface Json2TsConfig {
   $schema?: string;
   /**

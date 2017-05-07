@@ -9,11 +9,11 @@ export interface Pattern {
 
 export function parse(url: string): Promise<Pattern[]> {
   return axios.get(url).then(res => {
-    let $ = load(res.data);
-    return $("#patterns > li").toArray().map(e => {
-      let li = $(e);
-      let style = li.attr('style');
-      let start = style.indexOf(',') + 1;
+    const $ = load(res.data);
+    return $('#patterns > li').toArray().map(e => {
+      const li = $(e);
+      const style = li.attr('style');
+      const start = style.indexOf(',') + 1;
       return <Pattern>{
         name: li.attr('name'),
         base64: li.attr('style').slice(start, -3),
