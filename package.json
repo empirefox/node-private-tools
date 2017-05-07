@@ -26,7 +26,7 @@
     "init-json2ts": "cd src/schemas/ && json2ts ./json2ts.json ../json2ts/config.ts",
     "json2ts": "ts-node ./src/tools-loader/json2ts.ts",
     "lint": "tslint -e **/node_modules/** -e **/dist/** -e **/test/dist/** -t codeFrame **/*.ts ",
-    "prebuild": "rimraf dist && rimraf docs && rimraf test/dist",
+    "prebuild": "rimraf node_modules/webpack/node_modules/uglify-js &&rimraf dist && rimraf docs && rimraf test/dist",
     "dev": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack -p",
     "build:dev": "webpack",
@@ -72,15 +72,12 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
       }
     }
-  },
-  "peerDependencies": {
-    "uglify-js": "https://api.github.com/repos/mishoo/UglifyJS2/tarball/harmony"
   },
   "dependencies": {
     "ajv": "^5.0.1",
@@ -141,7 +138,6 @@
     "typedoc-webpack-plugin": "^1.1.3",
     "typescript": "^2.2.2",
     "uglify-js": "https://api.github.com/repos/mishoo/UglifyJS2/tarball/harmony",
-    "uglifyjs-webpack-plugin": "^0.4.3",
     "validate-commit-msg": "^2.10.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.4.1",
