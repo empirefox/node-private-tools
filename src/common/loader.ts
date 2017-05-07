@@ -1,7 +1,8 @@
 import { KeywordDefinition, FormatDefinition } from 'ajv';
 
 export interface Runner {
-  run(): Promise<any> | void;
+  config: { $tool: string };
+  run(): Promise<any>;
 }
 
 export interface RunnerConstructor extends Function {

@@ -26,7 +26,7 @@
     "init-json2ts": "cd src/schemas/ && json2ts ./json2ts.json ../json2ts/config.ts",
     "json2ts": "ts-node ./src/tools-loader/json2ts.ts",
     "lint": "tslint -e **/node_modules/** -e **/dist/** -t codeFrame **/*.ts ",
-    "prebuild": "rimraf dist docs test/dist",
+    "prebuild": "rimraf dist && rimraf docs && rimraf test/dist",
     "dev": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack -p",
     "build:dev": "webpack",
@@ -82,6 +82,9 @@
       }
     }
   },
+  "peerDependencies": {
+    "uglify-js": "https://api.github.com/repos/mishoo/UglifyJS2/tarball/harmony"
+  },
   "dependencies": {
     "ajv": "^5.0.1",
     "axios": "^0.16.1",
@@ -93,6 +96,7 @@
     "handlebars": "^4.0.8",
     "iconv-lite": "^0.4.17",
     "lodash": "^4.17.4",
+    "ora": "^1.2.0",
     "pg": "^6.1.5",
     "stringify-object": "^3.2.0",
     "typeorm": "0.0.11",
@@ -108,6 +112,7 @@
     "@types/json-schema": "^4.0.0",
     "@types/lodash": "^4.14.63",
     "@types/node": "^7.0.2",
+    "@types/ora": "^0.3.31",
     "@types/webpack": "^2.2.7",
     "@types/yargs": "^6.6.0",
     "awesome-typescript-loader": "^3.1.0",
@@ -134,6 +139,8 @@
     "typedoc": "^0.5.7",
     "typedoc-webpack-plugin": "^1.1.3",
     "typescript": "^2.2.2",
+    "uglify-js": "https://api.github.com/repos/mishoo/UglifyJS2/tarball/harmony",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "validate-commit-msg": "^2.10.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.4.1",

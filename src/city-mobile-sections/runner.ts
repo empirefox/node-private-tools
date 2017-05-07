@@ -16,7 +16,7 @@ export class CityMobileSections {
     };
   }
 
-  constructor(private config: CityMobileSectionsConfig) { }
+  constructor(public config: CityMobileSectionsConfig) { }
 
   run(): Promise<any> {
     return connect(this.config.driver).then(async c => {

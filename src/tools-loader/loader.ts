@@ -2,6 +2,7 @@ import { template } from 'lodash';
 import { argv } from 'yargs';
 import { Options, Ajv as AjvType, ValidateFunction, ErrorObject } from 'ajv';
 import * as Ajv from 'ajv';
+import ora = require('ora');
 
 import { Runner, RunnerConstructor, RunnerWithSchema } from '../common';
 import { ToolsLoaderConfig, GenericToolConfig } from '../schemas/config';
@@ -88,9 +89,34 @@ export class ToolsLoader {
   }
 
   run(): Promise<any> {
+    const spinner = ora('Node-private-tools starting');
+    const length = this.loaderConfig.tasks.length;
     return this.loaderConfig.tasks
       .map(task => this.create(task))
-      .reduce((cur, next) => cur.then(_ => next.run()), Promise.resolve());
+      .reduce((cur, next, index) => {
+        return cur.then(() => {
+          spinner.color = 'yellow';
+          spinner.text = `(${index + 1}/${length}) Running ${next.config.$tool} `;
+          spinner.start();
+          return next.run().then(
+            () => {
+              spinner.color = 'green';
+              spinner.text = `(${index + 1}/${length}) ${next.config.$tool} completed `;
+              spinner.succeed();
+            },
+            err => {
+              spinner.color = 'cyan';
+              spinner.text = `(${index + 1}/${length}) ${next.config.$tool} failed `;
+              spinner.fail();
+              return Promise.reject(err);
+            });
+        });
+      }, Promise.resolve())
+      .then(() => {
+        spinner.color = 'green';
+        spinner.text = `done `;
+        spinner.succeed();
+      });
     // return Promise.resolve()
   }
 

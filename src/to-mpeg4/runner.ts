@@ -22,7 +22,7 @@ export class ToMpeg4 implements Runner {
     };
   }
 
-  constructor(private config: ToMpeg4Config) { }
+  constructor(public config: ToMpeg4Config) { }
 
   run(): Promise<any> {
     let { src, dist, outputOptions = [] } = this.config;

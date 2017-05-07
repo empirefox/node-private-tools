@@ -5,22 +5,24 @@ import { RunnerWithSchema } from './common';
 import { ToolsLoaderConfig } from './schemas';
 import { ToolsLoader, RUNNERS } from './runners';
 
-export function bootstrap(loaderConfig: ToolsLoaderConfig, additionRunners: RunnerWithSchema[]): Promise<any>{
+const lazyRequire = eval('require');
+
+export function bootstrap(loaderConfig: ToolsLoaderConfig, additionRunners: RunnerWithSchema[]): Promise<any> {
   if (VERSION !== loaderConfig.version) {
     console.warn(`Your config version is ${loaderConfig.version}, but loader version is ${VERSION}!`);
   }
 
   const runners = [...new Set([
     ...additionRunners,
-    ...(loaderConfig.additionRunners || []).map(item => require(item)),
+    ...(loaderConfig.additionRunners || []).map(item => lazyRequire(item)),
     ...RUNNERS.map(runner => runner.forLoader()),
-    ])];
+  ])];
   const loader = new ToolsLoader(loaderConfig);
   runners.forEach(runner => loader.registry(runner));
 
   const errors = loader.validate();
   // console.log(JSON.stringify(loaderConfig, null, '\t'))
-  return errors? Promise.reject(errors): loader.run();
+  return errors ? Promise.reject(errors) : loader.run();
 }
 
 export function bootstrapFromCli(additionRunners: RunnerWithSchema[] = []): Promise<any> {
@@ -39,5 +41,5 @@ export function bootstrapFromCli(additionRunners: RunnerWithSchema[] = []): Prom
     .alias('h', 'help')
     .argv;
 
-    return bootstrap(loaderConfig, additionRunners);
+  return bootstrap(loaderConfig, additionRunners);
 }

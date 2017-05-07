@@ -15,7 +15,7 @@ export class Arukas implements Runner {
     };
   }
 
-  constructor(private config: ArukasConfig) { }
+  constructor(public config: ArukasConfig) { }
 
   run(): Promise<any> {
     return axios.get('https://app.arukas.io/api/containers', {

@@ -12,7 +12,7 @@ export class Kuaidi100 implements Runner {
     };
   }
 
-  constructor(private config: Kuaidi100Config) { }
+  constructor(public config: Kuaidi100Config) { }
 
   run(): Promise<any> {
     // https://rawgit.com/simman/Kuaidi100/master/companys.json

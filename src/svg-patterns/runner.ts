@@ -12,7 +12,7 @@ export class SvgPatterns implements Runner {
     };
   }
 
-  constructor(private config: SvgPatternsConfig) { }
+  constructor(public config: SvgPatternsConfig) { }
 
   run(): Promise<any> {
     return parse(this.config.url).then(svgs => writeFile(this.config.dist, svgs));

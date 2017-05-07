@@ -3,4 +3,4 @@
 require('reflect-metadata');
 const { bootstrapFromCli } = require('../dist/node-private-tools');
 
-bootstrapFromCli().then(_ => console.log('done'), err => console.error(err));
+bootstrapFromCli().catch(err => console.error(err));

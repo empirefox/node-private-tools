@@ -17,7 +17,7 @@ export class GoTagApis {
     };
   }
 
-  constructor(private config: GoTagApisConfig) { }
+  constructor(public config: GoTagApisConfig) { }
 
   run(): Promise<any> {
     return readGlobJoin(this.config.src).then(sources => {

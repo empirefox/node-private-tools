@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "$tool": "test-tool"
+    },
+    {
       "$tool": "go-const-ts",
       "src": [
         "./test/go-const-ts/*.go"
@@ -62,5 +65,8 @@
   "ajv": {
     "verbose": true,
     "useDefaults": true
-  }
+  },
+  "additionRunners": [
+    "../test/runner/runner"
+  ]
 }

@@ -23,7 +23,7 @@ export class GoConstTs implements Runner {
     };
   }
 
-  constructor(private config: GoConstTsConfig) { }
+  constructor(public config: GoConstTsConfig) { }
 
   run(): Promise<any> {
     const dist = this.config.dist;

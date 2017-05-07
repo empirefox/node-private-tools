@@ -16,7 +16,7 @@ export class Json2ts implements Runner {
     };
   }
 
-  constructor(private config: Json2TsConfig) { }
+  constructor(public config: Json2TsConfig) { }
 
   run(): Promise<void> {
     return (<Promise<string[]>>globby(this.config.src)).then(paths =>

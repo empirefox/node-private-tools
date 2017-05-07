@@ -20,7 +20,7 @@ export class TsTrans implements Runner {
 
   private parser: TsTypeTagParser;
 
-  constructor(private config: TsTransConfig) {
+  constructor(public config: TsTransConfig) {
     this.parser = new TsTypeTagParser(config.tag);
   }
 
