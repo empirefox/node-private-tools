@@ -23,6 +23,10 @@
     "src",
     "typings.d.ts"
   ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
   "awesomeTypescriptLoaderOptions": {
     "useBabel": false
   }

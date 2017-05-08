@@ -27,7 +27,7 @@
     "tsc": "tsc --declaration --module amd --sourceMap false && rimraf dist/types.js",
     "init-json2ts": "cd src/schemas/ && json2ts ./json2ts.json ../json2ts/config.ts",
     "json2ts": "ts-node ./src/tools-loader/json2ts.ts",
-    "lint": "tslint -e **/node_modules/** -e **/dist/** -e **/test/dist/** -t codeFrame **/*.ts ",
+    "lint": "tslint -e **/node_modules/** -e **/dist/** -e dist/types.d.ts -t codeFrame **/*.ts",
     "prebuild": "rimraf dist && rimraf docs && rimraf test/dist",
     "dev": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack -p && npm run tsc",
