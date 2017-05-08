@@ -74,7 +74,7 @@ var schema = {
   "required": ["foo", "bar"]
 };
 
-var data = { "foo": 1, from: '/^foo/g' };
+var data = { "foo": 1, from: '/ng-ef-sand/xlang/g' };
 
 var validate = ajv.compile(schema);
 

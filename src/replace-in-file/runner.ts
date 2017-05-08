@@ -1,4 +1,4 @@
-import { Runner, RunnerWithSchema, writeFile } from '../common';
+import { Runner, RunnerWithSchema } from '../common';
 import { ReplaceInFileConfig } from '../schemas';
 
 const chalk = require('chalk');
@@ -17,18 +17,12 @@ export class ReplaceInFile implements Runner {
   constructor(public config: ReplaceInFileConfig) { }
 
   run(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      try {
-        const changedFiles = replace.sync(this.config);
-        if (changedFiles.length > 0) {
-          console.log(chalk.green(changedFiles.length, 'file(s) were changed'));
-          changedFiles.forEach(file => console.log(chalk.grey('-', file)));
-        } else {
-          console.log(chalk.yellow('No files were changed'));
-        }
-        resolve();
-      } catch (err) {
-        reject(err);
+    return replace(this.config).then(changedFiles => {
+      if (changedFiles.length > 0) {
+        console.log(chalk.green(changedFiles.length, 'file(s) were changed'));
+        changedFiles.forEach(file => console.log(chalk.grey('-', file)));
+      } else {
+        console.log(chalk.yellow('No files were changed'));
       }
     });
   }

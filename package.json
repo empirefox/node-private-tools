@@ -82,6 +82,7 @@
   },
   "dependencies": {
     "ajv": "^5.0.1",
+    "ajv-keywords": "^2.0.0",
     "axios": "^0.16.1",
     "cheerio": "^0.22.0",
     "cosmiconfig": "^2.1.3",

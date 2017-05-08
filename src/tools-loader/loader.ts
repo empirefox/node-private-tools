@@ -4,7 +4,7 @@ import { Options, Ajv as AjvType, ValidateFunction, ErrorObject } from 'ajv';
 import * as Ajv from 'ajv';
 import ora = require('ora');
 
-import { Runner, RunnerConstructor, RunnerWithSchema } from '../common';
+import { parseRegExpSync, Runner, RunnerConstructor, RunnerWithSchema } from '../common';
 import { ToolsLoaderConfig, GenericToolConfig } from '../schemas/config';
 
 const { normalize } = require('fs-plus');
@@ -26,17 +26,10 @@ const expandTplDatas = {
 
 const proccessors = {
   regexp: (data, dataPath, parentData, parentDataProperty) => {
-    if (data instanceof RegExp) {
-      return true;
-    }
-    const flags = data.replace(/.*\/([gimy]*)$/, '$1');
-    const pattern = data.replace(new RegExp(`^/(.*?)/${flags}$`), '$1');
     try {
-      parentData[parentDataProperty] = new RegExp(pattern, flags);
+      parentData[parentDataProperty] = parseRegExpSync(data);
       return true;
-    } catch (error) {
-      console.error(chalk.red(`Error creating RegExp from '${data}' parameter:`));
-      console.error(error);
+    } catch (err) {
       return false;
     }
   },
@@ -54,11 +47,12 @@ export class ToolsLoader {
     const ajvOptions = Object.assign({}, defaultAjv, loaderConfig.ajv);
     const ajv = this.ajv = new Ajv(ajvOptions);
 
+    require('ajv-keywords')(ajv);
     ajv.addKeyword('preproccess', {
       type: ['string'],
-      valid: true,
       modifying: true,
-      compile: (sch, parentSchema) => (data, dataPath, parentData, parentDataProperty) => {
+      compile: (sch, parentSchema: any) => (data, dataPath, parentData, parentDataProperty) => {
+        // string
         const expandTplData = expandTplDatas[sch];
         if (expandTplData) {
           return expand(expandTplData, data, dataPath, parentData, parentDataProperty);

@@ -188,13 +188,13 @@ export interface ReplaceInFileConfig {
   $tool: string;
   files: (string | string[]);
   /**
-   * Regexp(s) to find from files.
+   * RegExp(s) to find from files.
    */
-  from: (string | {
+  from: ({
     [k: string]: any;
-  } | (string | {
+  } | string | ({
       [k: string]: any;
-    })[]);
+    } | string)[]);
   /**
    * Multiple replacements with same/different strings (replaced sequentially).
    */

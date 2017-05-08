@@ -29,14 +29,13 @@
       ]
     },
     "from": {
-      "description": "Regexp(s) to find from files.",
+      "description": "RegExp(s) to find from files.",
       "oneOf": [
         {
-          "type": "string",
-          "preproccess": "regexp"
+          "instanceof": "RegExp"
         },
         {
-          "type": "object",
+          "type": "string",
           "preproccess": "regexp"
         },
         {
@@ -45,11 +44,10 @@
           "items": {
             "oneOf": [
               {
-                "type": "string",
-                "preproccess": "regexp"
+                "instanceof": "RegExp"
               },
               {
-                "type": "object",
+                "type": "string",
                 "preproccess": "regexp"
               }
             ]

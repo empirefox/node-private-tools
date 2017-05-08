@@ -55,15 +55,14 @@ export function bootstrapFromCli(additionRunners: RunnerWithSchema[] = []): Prom
 
   const load: Promise<{ config: any, filepath: string }> = cosmiconfig('npt', cosmiconfigOptions).load(searchPath, configPath);
   return load.then(({ config, filepath }) => {
-    console.log(chalk.yellow(`Loading config from ${filepath}`));
+    console.log(chalk.yellow(`Loading ${filepath}`));
     return bootstrap(config, additionRunners);
   }).catch(err => {
     if (configPath) {
-      console.log(chalk.yellow(`Error loading ${configPath}:`));
-      console.log(err);
+      console.log(chalk.yellow(`Error from ${configPath}:`));
     } else {
       argv.showHelp();
     }
-    return Promise.reject('Failed');
+    return Promise.reject(err);
   });
 }

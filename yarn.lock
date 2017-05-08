@@ -174,6 +174,10 @@ agent-base@2:
     extend "~3.0.0"
     semver "~5.0.1"
 
+ajv-keywords:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/ajv-keywords/download/ajv-keywords-2.0.0.tgz#a37d02f845b6f52569804164270b24cb6c6cee61"
+
 ajv-keywords@^1.1.1:
   version "1.5.1"
   resolved "http://registry.npm.taobao.org/ajv-keywords/download/ajv-keywords-1.5.1.tgz#314dd0a4b3368fad3dfcdc54ede6171b886daf3c"
