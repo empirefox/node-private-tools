@@ -4,6 +4,7 @@ import { GoConstTs } from './go-const-ts/runner';
 import { GoTagApis } from './go-tag-apis/runner';
 import { Json2ts } from './json2ts/runner';
 import { Kuaidi100 } from './kuaidi100/runner';
+import { ReplaceInFile } from './replace-in-file/runner';
 import { SvgPatterns } from './svg-patterns/runner';
 import { ToMpeg4 } from './to-mpeg4/runner';
 import { TsTrans } from './ts-trans/runner';
@@ -15,6 +16,7 @@ export {
   GoTagApis,
   Json2ts,
   Kuaidi100,
+  ReplaceInFile,
   SvgPatterns,
   ToMpeg4,
   TsTrans,
@@ -27,6 +29,7 @@ export const RUNNERS = [
   GoTagApis,
   Json2ts,
   Kuaidi100,
+  ReplaceInFile,
   SvgPatterns,
   ToMpeg4,
   TsTrans,

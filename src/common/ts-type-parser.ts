@@ -63,7 +63,8 @@ export class TsTypeTagParser {
   }
 
   findTagComment(node: any): string | undefined {
-    for (const jsDoc of node['jsDoc'] || []) {
+    // tslint:disable-next-line:prefer-const
+    for (let jsDoc of node['jsDoc'] || []) {
       const tags: ts.JSDocTag[] = (jsDoc && jsDoc.tags) || [];
       const tag = tags.find(item => item && item.tagName && item.tagName.text === this.commentTagName);
       if (tag) {

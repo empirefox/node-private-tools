@@ -59,11 +59,16 @@ npm-debug.log
 .idea/
 *.swp
 
-.editorconfig
 .vscode
+/dist/docs
+/src
+/test
+/tools
+.editorconfig
 .gitignore
-src/
+.travis.yml
+.typings.d.ts
 tsconfig.json
 tslint.json
-/test
-dist/index.html
+webpack.config.ts
+yarn.lock

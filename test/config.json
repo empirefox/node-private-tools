@@ -67,6 +67,6 @@
     "useDefaults": true
   },
   "additionRunners": [
-    "../test/runner/runner"
+    "./test/runner/runner"
   ]
 }

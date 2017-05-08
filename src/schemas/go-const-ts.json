@@ -18,7 +18,7 @@
       "minItems": 1,
       "items": {
         "type": "string",
-        "expand": "env"
+        "preproccess": "env"
       }
     },
     "dist": {
@@ -53,7 +53,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "expand": "env"
+        "preproccess": "env"
       }
     },
     "pretties": {
@@ -67,7 +67,7 @@
             "^[A-Z].*$": {
               "description": "Struct translates filepath that will overwrite all other translates.",
               "type": "string",
-              "expand": "env"
+              "preproccess": "env"
             }
           },
           "additionalProperties": false

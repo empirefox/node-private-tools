@@ -177,6 +177,38 @@ export interface Kuaidi100Config {
   url: string;
 }
 
+/**
+ * replace-in-file options.
+ */
+export interface ReplaceInFileConfig {
+  $schema?: string;
+  /**
+   * Must be set to replace-in-file
+   */
+  $tool: string;
+  files: (string | string[]);
+  /**
+   * Regexp(s) to find from files.
+   */
+  from: (string | {
+    [k: string]: any;
+  } | (string | {
+      [k: string]: any;
+    })[]);
+  /**
+   * Multiple replacements with same/different strings (replaced sequentially).
+   */
+  to: (string | string[]);
+  /**
+   * Specify if empty/invalid file paths are allowed (defaults to false). If set to true these paths will fail silently and no error will be thrown.
+   */
+  allowEmptyPaths?: boolean;
+  /**
+   * Character encoding for reading/writing files (defaults to utf-8).
+   */
+  encoding?: string;
+}
+
 export interface SvgPatternsConfig {
   $schema?: string;
   /**

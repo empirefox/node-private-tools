@@ -1,3 +1,9 @@
+export interface Dict<T> {
+  [key: string]: T;
+  [key: number]: T;
+  // [key: symbol]: T;
+}
+
 export interface Entry {
   field: string;
   value: string;

@@ -18,7 +18,7 @@
       "minItems": 1,
       "items": {
         "type": "string",
-        "expand": "env"
+        "preproccess": "env"
       }
     },
     "structs": {

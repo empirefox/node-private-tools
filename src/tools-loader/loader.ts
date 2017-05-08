@@ -8,6 +8,7 @@ import { Runner, RunnerConstructor, RunnerWithSchema } from '../common';
 import { ToolsLoaderConfig, GenericToolConfig } from '../schemas/config';
 
 const { normalize } = require('fs-plus');
+const chalk = require('chalk');
 
 const defaultAjv = {
   useDefaults: true,
@@ -15,13 +16,36 @@ const defaultAjv = {
 
 function expand(tplData, data, dataPath, parentData, parentDataProperty) {
   parentData[parentDataProperty] = normalize(template(data)(tplData));
+  return true;
 }
 
-const tplDatas = {
+const expandTplDatas = {
   env: process.env,
   yargs: argv,
 };
 
+const proccessors = {
+  regexp: (data, dataPath, parentData, parentDataProperty) => {
+    if (data instanceof RegExp) {
+      return true;
+    }
+    const flags = data.replace(/.*\/([gimy]*)$/, '$1');
+    const pattern = data.replace(new RegExp(`^/(.*?)/${flags}$`), '$1');
+    try {
+      parentData[parentDataProperty] = new RegExp(pattern, flags);
+      return true;
+    } catch (error) {
+      console.error(chalk.red(`Error creating RegExp from '${data}' parameter:`));
+      console.error(error);
+      return false;
+    }
+  },
+};
+
+/**
+ * support preproccess:
+ * env, yargs, regexp
+ */
 export class ToolsLoader {
   ajv: AjvType;
   tools = new Map<string, RunnerConstructor>();
@@ -30,17 +54,19 @@ export class ToolsLoader {
     const ajvOptions = Object.assign({}, defaultAjv, loaderConfig.ajv);
     const ajv = this.ajv = new Ajv(ajvOptions);
 
-    ajv.addKeyword('expand', {
+    ajv.addKeyword('preproccess', {
       type: ['string'],
       valid: true,
       modifying: true,
       compile: (sch, parentSchema) => (data, dataPath, parentData, parentDataProperty) => {
-        const tplData = tplDatas[sch];
-        if (!tplData) {
+        const expandTplData = expandTplDatas[sch];
+        if (expandTplData) {
+          return expand(expandTplData, data, dataPath, parentData, parentDataProperty);
+        } else if (sch in proccessors) {
+          return proccessors[sch](data, dataPath, parentData, parentDataProperty);
+        } else {
           return false;
         }
-        expand(tplData, data, dataPath, parentData, parentDataProperty);
-        return true;
       }
     });
 
