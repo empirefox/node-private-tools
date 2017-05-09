@@ -60,7 +60,6 @@ npm-debug.log
 *.swp
 
 .vscode
-/dist/docs
 /src
 /test
 /tools

@@ -1,6 +1,4 @@
-import { join, resolve } from 'path'
-import { readdirSync } from 'fs'
-const { camelCase } = require('lodash')
+import { join } from 'path'
 const webpack = require('webpack')
 const { TsConfigPathsPlugin, CheckerPlugin } = require('awesome-typescript-loader')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -33,15 +31,13 @@ if (dev === false) {
     plugins.push(new TypedocWebpackPlugin(
         {
             theme: 'minimal',
-            out: 'docs',
+            out: '../doc',
             target: 'es6',
             ignoreCompilerErrors: true
         },
         'src'
     ))
     entry = join(__dirname, `src/${libraryName}.ts`)
-} else {
-    plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 
 export default {

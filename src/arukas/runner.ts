@@ -36,6 +36,7 @@ export class Arukas implements Runner {
           result.host = `${ip}:${portMapping.service_port}`;
           break;
       }
+      console.log();
       console.log(JSON.stringify(result, null, ' '));
       return result;
     });

@@ -59,6 +59,7 @@ export function bootstrapFromCli(additionRunners: RunnerWithSchema[] = []): Prom
     return bootstrap(config, additionRunners);
   }).catch(err => {
     if (configPath) {
+      console.log();
       console.log(chalk.yellow(`Error from ${configPath}:`));
     } else {
       argv.showHelp();
